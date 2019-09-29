@@ -22,8 +22,7 @@ all: $(NAME)
 
 $(NAME): $(FUNCTION)
 	@make -C libft all
-	@gcc -Wall -Wextra -Werror -c $(SRC) -I $(INCLUDE)
-	@gcc -o $(NAME) $(FUNCTION) libft/libft.a
+	@gcc -o $(NAME) $(FUNCTION) libft/libft.a 
 
 $(FUNCTION): %.o: %.c
 

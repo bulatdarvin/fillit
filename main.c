@@ -34,7 +34,7 @@ char	*readstr(int fd)
 
 t_tet	*warn(void)
 {
-	ft_putstr("error");
+	ft_putstr("error\n");
 	return (NULL);
 }
 
