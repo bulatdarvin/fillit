@@ -6,7 +6,7 @@
 /*   By: ssilvana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:12:28 by ssilvana          #+#    #+#             */
-/*   Updated: 2019/09/19 15:12:31 by ssilvana         ###   ########.fr       */
+/*   Updated: 2019/09/30 18:26:43 by qsharoly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ typedef struct		s_tet
 	char			c;
 }					t_tet;
 
+typedef struct		s_point
+{
+	int	x;
+	int	y;
+}					t_point;
+
 char				*readstr(int fd);
 int					check_one(char *line);
 int					check(char *line);
@@ -58,10 +64,9 @@ int					patterns(int a[8]);
 int					check_patterns(t_tet **begin);
 t_tet				*check_tetris(int argc, char **argv);
 int					tetris_size(t_tet *elem);
-char				**insert_tetris(char **map, int size, t_tet *elem);
-void				help_to_insert(t_tet *elem, int x, int y);
-int					check_map(t_tet	*elem, char	**map, int size);
-void				remove_tetris(char **map, int size, char a);
+char				**insert_tetris(char **map, t_tet *elem, t_point p);
+int					check_map(char **map, t_tet *elem, int size, t_point p);
+void				remove_tetris(char **map, t_tet *elem, t_point p);
 char				**algoritm(char **map, int size, t_tet *elem);
 char				**create_map(int size);
 char				**solve(t_tet	*elem);

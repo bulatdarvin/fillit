@@ -6,7 +6,7 @@
 /*   By: ssilvana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:09:26 by ssilvana          #+#    #+#             */
-/*   Updated: 2019/09/30 14:45:25 by qsharoly         ###   ########.fr       */
+/*   Updated: 2019/09/30 16:55:20 by qsharoly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		check_patterns(t_tet **begin)
 	tmp = *begin;
 	while (tmp)
 	{
-		shift(tmp);
 		if (patterns(tmp->tet_id))
 			return (1);
 		tmp = tmp->next;
