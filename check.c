@@ -6,7 +6,7 @@
 /*   By: ssilvana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:09:26 by ssilvana          #+#    #+#             */
-/*   Updated: 2019/09/26 13:09:28 by ssilvana         ###   ########.fr       */
+/*   Updated: 2019/09/30 14:17:23 by qsharoly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int		check_one(char *line)
 
 int		check(char *line)
 {
-	int add;
+	int		add;
 
 	add = 0;
 	while (line[add])
 	{
-		if (!(check_one(ft_strsub(line, add, 20))))
+		if (check_one(&line[add]) == 0)
 			return (1);
 		add += 19;
 		if (line[add] == '\n' && line[add + 1] == '\0')
@@ -110,8 +110,12 @@ t_tet	*check_tetris(int argc, char **argv)
 		return (warn());
 	line = readstr(fd);
 	if (check(line) == 1 || line[0] == '\0')
+	{
+		free(line);
 		return (warn());
+	}
 	elem = init(line, amount(line));
+	free(line);
 	if ((check_patterns(&elem)) == 1)
 		return (warn());
 	return (elem);

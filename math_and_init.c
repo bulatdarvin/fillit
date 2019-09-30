@@ -6,7 +6,7 @@
 /*   By: ssilvana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:11:12 by ssilvana          #+#    #+#             */
-/*   Updated: 2019/09/26 13:11:14 by ssilvana         ###   ########.fr       */
+/*   Updated: 2019/09/30 13:51:42 by qsharoly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_tet	*init(char *line, int k)
 	while (k > 0)
 	{
 		tmp->c = c;
-		set_tetris(&tmp, ft_strsub(line, add, 20));
+		set_tetris(&tmp, &line[add]);
+		tmp->next = NULL;
 		if (k - 1 != 0)
 			if (!(tmp->next = (t_tet*)malloc(sizeof(t_tet))))
 				return (NULL);
