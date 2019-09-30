@@ -6,7 +6,7 @@
 /*   By: ssilvana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:09:26 by ssilvana          #+#    #+#             */
-/*   Updated: 2019/09/30 14:17:23 by qsharoly         ###   ########.fr       */
+/*   Updated: 2019/09/30 14:45:25 by qsharoly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		check(char *line)
 	add = 0;
 	while (line[add])
 	{
-		if (check_one(&line[add]) == 0)
+		if (check_one(line + add) == 0)
 			return (1);
 		add += 19;
 		if (line[add] == '\n' && line[add + 1] == '\0')
