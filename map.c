@@ -6,94 +6,49 @@
 /*   By: ssilvana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:07:28 by ssilvana          #+#    #+#             */
-/*   Updated: 2019/09/26 13:07:29 by ssilvana         ###   ########.fr       */
+/*   Updated: 2019/09/30 18:25:52 by qsharoly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-char	**insert_tetris(char **map, int size, t_tet *elem)
+char	**insert_tetris(char **map, t_tet *elem, t_point p)
 {
-	int	x;
 	int i;
-	int	y;
 
-	y = 0;
 	i = 0;
-	while (y < size)
+	while (i < 8)
 	{
-		x = 0;
-		while (x < size)
-		{
-			if (elem->tet_id[i] == x && elem->tet_id[i + 1] == y)
-			{
-				map[y][x] = elem->c;
-				i = i + 2;
-			}
-			x++;
-		}
-		y++;
+		map[p.y + elem->tet_id[i + 1]][p.x + elem->tet_id[i]] = elem->c;
+		i = i + 2;
 	}
 	return (map);
 }
 
-void	help_to_insert(t_tet *elem, int x, int y)
+int		check_map(char **map, t_tet *elem, int size, t_point p)
 {
 	int i;
 
 	i = 0;
-	shift(elem);
 	while (i < 8)
 	{
-		elem->tet_id[i] = elem->tet_id[i] + x;
-		elem->tet_id[i + 1] = elem->tet_id[i + 1] + y;
+		if (p.x + elem->tet_id[i] >= size || p.y + elem->tet_id[i + 1] >= size
+			|| map[p.y + elem->tet_id[i + 1]][p.x + elem->tet_id[i]] != '.')
+			return (0);
 		i = i + 2;
 	}
+	return (1);
 }
 
-int		check_map(t_tet *elem, char **map, int size)
+void	remove_tetris(char **map, t_tet *elem, t_point p)
 {
-	int	x;
-	int	y;
-	int i;
+	int	i;
 
-	y = 0;
 	i = 0;
-	while (y < size)
+	while (i < 8)
 	{
-		x = 0;
-		while (x < size)
-		{
-			if (elem->tet_id[i] < size && elem->tet_id[i + 1] < size
-					&& map[elem->tet_id[i + 1]][elem->tet_id[i]] == '.')
-			{
-				i = i + 2;
-				if (i == 8)
-					return (1);
-			}
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
-
-void	remove_tetris(char **map, int size, char a)
-{
-	int x;
-	int y;
-
-	y = 0;
-	while (y < size)
-	{
-		x = 0;
-		while (x < size)
-		{
-			if (map[y][x] == a)
-				map[y][x] = '.';
-			x++;
-		}
-		y++;
+		map[p.y + elem->tet_id[i + 1]][p.x + elem->tet_id[i]] = '.';
+		i = i + 2;
 	}
 }
 
@@ -104,7 +59,7 @@ void	set_tetris(t_tet **elem, char *s)
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\0')
+	while (s[i] && i < 20)
 	{
 		if (s[i] == '#')
 		{
@@ -115,4 +70,5 @@ void	set_tetris(t_tet **elem, char *s)
 		}
 		i++;
 	}
+	shift(*elem);
 }

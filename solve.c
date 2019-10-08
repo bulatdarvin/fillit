@@ -6,7 +6,7 @@
 /*   By: ssilvana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:06:10 by ssilvana          #+#    #+#             */
-/*   Updated: 2019/09/26 14:11:24 by ssilvana         ###   ########.fr       */
+/*   Updated: 2019/09/30 18:26:54 by qsharoly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,28 @@ char	**solve(t_tet *elem)
 
 char	**algoritm(char **map, int size, t_tet *elem)
 {
-	int		x;
-	int		y;
+	t_point	p;
 	char	**tetris;
 
-	y = 0;
 	if (elem == NULL)
 		return (map);
 	tetris = NULL;
-	while (y < size)
+	p.y = 0;
+	while (p.y < size)
 	{
-		x = 0;
-		while (x < size)
+		p.x = 0;
+		while (p.x < size)
 		{
-			help_to_insert(elem, x, y);
-			if (check_map(elem, map, size))
-				tetris = algoritm(insert_tetris(map, size, elem),
-						size, elem->next);
-			if (tetris != NULL)
-				return (tetris);
-			remove_tetris(map, size, elem->c);
-			x++;
+			if (check_map(map, elem, size, p))
+			{
+				if ((tetris = algoritm(insert_tetris(map, elem, p),
+						size, elem->next)) != NULL)
+					return (tetris);
+				remove_tetris(map, elem, p);
+			}
+			p.x++;
 		}
-		y++;
+		p.y++;
 	}
 	return (NULL);
 }

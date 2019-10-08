@@ -6,7 +6,7 @@
 /*   By: ssilvana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:13:44 by ssilvana          #+#    #+#             */
-/*   Updated: 2019/09/26 13:13:49 by ssilvana         ###   ########.fr       */
+/*   Updated: 2019/09/30 13:44:47 by qsharoly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ t_tet	*warn(void)
 	return (NULL);
 }
 
+void	free_elem_list(t_tet **elem)
+{
+	t_tet	*tmp;
+
+	if (!elem)
+		return ;
+	while (*elem)
+	{
+		tmp = (*elem)->next;
+		free(*elem);
+		*elem = tmp;
+	}
+}
+
 int		main(int argc, char **argv)
 {
 	t_tet	*elem;
@@ -48,11 +62,14 @@ int		main(int argc, char **argv)
 	if (elem == NULL)
 		return (0);
 	map = solve(elem);
+	free_elem_list(&elem);
 	i = 0;
 	while (map[i])
 	{
 		ft_putendl(map[i]);
+		free(map[i]);
 		i++;
 	}
+	free(map);
 	return (0);
 }
